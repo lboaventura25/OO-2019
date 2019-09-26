@@ -9,6 +9,16 @@ Categoria::Categoria(string nome) {
     set_categoria(nome);
 }
 
+Categoria::Categoria(string nome, vector<Produto *> produtos) {
+    set_categoria(nome);
+    set_produtos(produtos);
+}
+
+Categoria::Categoria(vector<Produto *> produtos) {
+    set_categoria("Genérico");
+    set_produtos(produtos);
+}
+
 Categoria::~Categoria() {}
 
 void Categoria::set_categoria(string nome) {
@@ -37,6 +47,14 @@ void Categoria::set_produto(Produto * produto) {
     produtos.push_back(produto);
 }
 
+void Categoria::set_produtos(vector<Produto *> produtos) {
+    this->produtos = produtos;
+}
+
+vector<Produto *> Categoria::get_produto() {
+    return produtos;
+}
+
 bool Categoria::cadastra_categoria(string categoria) {
     ofstream saida;
 
@@ -58,7 +76,7 @@ bool Categoria::cadastra_categoria(string categoria) {
 
 void Categoria::cadastra_codigos() {
     ofstream saida;
-    saida.open("./doc/Categorias/"+get_categoria()+".txt", ios::trunc);
+    saida.open("./doc/Categorias/Categorias/"+get_categoria()+".txt", ios::trunc);
 
     if(saida.is_open()) {
         for(Produto * produto: produtos) {

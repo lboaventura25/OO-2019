@@ -1,2 +1,4 @@
 Salgado
 Doces
+Bebidas
+Frios

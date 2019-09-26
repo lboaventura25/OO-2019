@@ -24,14 +24,16 @@ void Menu::menu_inicio() {
 
 void Menu::menu_modoVenda() {
     system("clear");
+    int i;
     cout << "<-- Bem-vindo ao modo Venda! -->" << endl;
     cout << "--------------------------------" << endl;
-    menu_cadastro();
-    menu_compra();
+    i = menu_cadastro();
+    menu_compra(i);
 }
 
-void Menu::menu_cadastro() {
+int Menu::menu_cadastro() {
     string arquivo, cpf;
+    int check = 0;
     clientes.push_back(new Cliente());
 
 
@@ -48,11 +50,13 @@ void Menu::menu_cadastro() {
         else 
             clientes[clientes.size()-1]->imprime_dados();
         sleep(2);
+        check = 1;
     }
     else {
         cadastra_cliente();
+        check = 0;
     }
-
+    return check;
 }
 
 bool Menu::cadastro_existe(string arquivo, string test) {
@@ -62,7 +66,7 @@ bool Menu::cadastro_existe(string arquivo, string test) {
         cout << "--------------------------------" << endl;
         return true;
     }
-    cout << "Cadastro não encontrado" << endl;
+    cout << "###### Cadastro não encontrado ######" << endl;
     return false;
 }
 
@@ -89,10 +93,11 @@ void Menu::set_cliente(string nome, int idade, string cpf, string email) {
     sleep(1);
 }
 
-void Menu::menu_compra() {
+void Menu::menu_compra(int check) {
     string codigo;
     string sair = "S";
     int quantidade;
+    vector<Categoria *> cat;
 
     cout << " <------------ Modo Compra ------------>" << endl;
     while(sair == "S") {
@@ -114,13 +119,15 @@ void Menu::menu_compra() {
         clientes[clientes.size()-1]->cadastra_cliente();
         cout << "Aperte ENTER para voltar ao menu incial...--> " << endl;
         codigo = getString();
+        vector<Produto *> produtos = clientes[clientes.size()-1]->atualiza_recomendacao();
+        recomendacao = new Recomendacao(new Categoria(produtos));
+        recomendacao->add_categoria_cliente(check, clientes[clientes.size()-1]->get_cpf());
     }
     else {
         cout << "############## COMPRA CANCELADA POR FALTA DE PRODUTOS NO ESTOQUE ##############" << endl;
         cout << "Aperte ENTER para voltar ao menu incial...--> " << endl;
         codigo = getString();
     }
-    clientes[clientes.size()-1]->kill_carrinho();
 }
 
 void Menu::menu_modoEstoque() {
@@ -165,6 +172,7 @@ void Menu::menu_modoEstoque() {
 void Menu::cadastra_produto() {
     string codigo, nome, preco;
     int quantidade;
+    //cout << "\033[2J\033[1;1H";
 
     cout << "-------------------------------------" << endl;
     cout << "Insira os dados do novo produto -->" << endl;
@@ -189,7 +197,7 @@ void Menu::atualiza_estoque() {
     //estoque = new Estoque();
 
     cout << "-------------------------------------------------------------" << endl;
-    cout << "Insira o código produto que deseja atualizar a quantidade -->";
+    cout << "Insira o código produto que deseja atualizar a quantidade --> ";
     codigo = getString();
     cout << "Digite a nova quantidade do produto --> ";
     quantidade = getInt();
@@ -228,4 +236,28 @@ void Menu::cadastra_categoria() {
     }
     cout << "Digite ENTER para continuar --> ";
     categoria = getString();
+}
+
+void Menu::menu_modoRecomendacao() {
+    string cpf, arquivo;
+    clientes.push_back(new Cliente());
+
+    system("clear");
+    cout << "<-- Bem-vindo ao modo Recomendação! -->" << endl;
+    cout << "---------------------------------------" << endl;
+
+    cout << "Digite o cpf do cliente: ";
+    cpf = getString();
+    cout << "--------------------------------" << endl;
+    arquivo = clientes[clientes.size()-1]->check_cpf(cpf);
+    if(cadastro_existe(arquivo, "./doc/Cadastro_clientes/"+cpf)) {
+        clientes[clientes.size()-1] = clientes[clientes.size()-1]->leArquivo(arquivo); 
+        clientes[clientes.size()-1]->imprime_dados();
+    }
+    else {
+        
+    }
+
+    cout << "Digite ENTER para volta ao Menu Inicial --> ";
+    cpf = getString();
 }

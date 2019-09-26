@@ -2,6 +2,8 @@
 #include <string>
 #include <fstream>
 #include <unistd.h>
+#include <iomanip>
+#include <cmath>
 #include "carrinho.hpp"
 
 using namespace std;
@@ -14,8 +16,8 @@ void Carrinho::set_produto(Produto *produto) {
     this->produtos.push_back(produto);
 }
 
-Produto * Carrinho::get_produto(int posicao) {
-    return this->produtos[posicao];
+vector<Produto *> Carrinho::get_produto() {
+    return this->produtos;
 }
 
 void Carrinho::set_quantidades(int quantidade) {
@@ -66,7 +68,7 @@ float Carrinho::nota_fiscal_do_carrinho(float porcentagem_desconto) {
 
     cout << "--------------------------------------------------------" << endl;
     cout << endl << "--> Valor total da compra: R$" << valor << endl;
-    cout << "--> Valor do desconto oferecido: R$" << porcentagem_desconto * valor << endl; 
+    cout << "--> Valor do desconto oferecido: R$" << (porcentagem_desconto * valor) << endl; 
     cout << "--> Valor final ----> R$" << (1 - porcentagem_desconto) * valor << endl;
     cout << "--------------------------------------------------------" << endl;
 
@@ -74,7 +76,8 @@ float Carrinho::nota_fiscal_do_carrinho(float porcentagem_desconto) {
 }
 
 bool Carrinho::check_estoque() {
-    int i = 0, j = 0;
+    int i = 0;
+    vector<int> j;
     vector<bool> okay;
 
     for(Produto *produto: produtos) {
@@ -82,10 +85,9 @@ bool Carrinho::check_estoque() {
             okay.push_back(true);
         }
         else {
-            produtos.erase(produtos.begin() + j);
             okay.push_back(false);
         }
-        j++;
+        i++;
     }
 
     for(bool x: okay) {

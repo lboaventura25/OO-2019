@@ -52,7 +52,7 @@ public:
     void compra_do_cliente(string codigo, int quantidade);
     bool finaliza_compra();
     virtual void nota_fiscal();
-    void kill_carrinho();
+    vector<Produto *> atualiza_recomendacao();
 };
 
 #endif

@@ -12,17 +12,11 @@ Socio::Socio(Cliente * cliente){
     set_idade(cliente->get_idade());
     set_cpf(cliente->get_cpf());
     set_email(cliente->get_email());
-    set_socio(cliente->get_socio());
+    set_socio(true);
     set_total_de_compras(cliente->get_total_de_compras());
 
-    if(get_total_de_compras() >= 20 && get_total_de_compras() < 30)
-        set_desconto(0.05);
-    else if(get_total_de_compras() >= 30 && get_total_de_compras() < 50)
-        set_desconto(0.10);
-    else if(get_total_de_compras() >= 50 && get_total_de_compras() < 100)
-        set_desconto(0.20);
-    else
-        set_desconto(0.25);
+    if(get_total_de_compras() >= 20)
+        set_desconto(0.15);
 }
 
 Socio::~Socio() {}

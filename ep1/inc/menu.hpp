@@ -8,6 +8,7 @@
 #include "socio.hpp"
 #include "estoque.hpp"
 #include "categoria.hpp"
+#include "recomendacao.hpp"
 
 using namespace std;
 
@@ -17,6 +18,7 @@ class Menu {
         vector<Cliente *> clientes;
         Estoque *estoque;
         Categoria *categorias;
+        Recomendacao *recomendacao;
 
     public:
         // Métodos
@@ -27,9 +29,9 @@ class Menu {
         void menu_inicio();
 
         void menu_modoVenda();
-        void menu_cadastro();
+        int menu_cadastro();
         void menu_cadastro_produtos();
-        void menu_compra();
+        void menu_compra(int check);
         void menu_modoEstoque();
         void set_cliente(string nome, int idade, string cpf, string email);
         bool cadastro_existe(string arquivo, string test);
@@ -37,6 +39,7 @@ class Menu {
         void cadastra_produto();
         void atualiza_estoque();
         void cadastra_categoria();
+        void menu_modoRecomendacao();
 };
 
 #endif

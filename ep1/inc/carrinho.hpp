@@ -22,7 +22,7 @@ public:
 
     // Métodos Acessores
     void set_produto(Produto * produto);
-    Produto * get_produto(int posicao);
+    vector<Produto *> get_produto();
     void set_quantidades(int quantidade);
     vector<int> get_quantidades();
 

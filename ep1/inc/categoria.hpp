@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 #include <string>
+#include <map>
 #include "produto.hpp"
 
 using namespace std;
@@ -18,13 +19,17 @@ private:
 public:
     Categoria();//Construtor
     Categoria(string nome);
+    Categoria(string nome, vector<Produto *> produtos);
+    Categoria(vector<Produto *> produtos);
     ~Categoria();//Destrutor
 
     //Métodos Acessores
-    void set_categoria(string get_nome);
+    void set_categoria(string nome);
     string get_categoria();
     void set_produto(string codigo);
-    void set_produto(Produto *produto);
+    void set_produtos(vector<Produto *> produtos);
+    void set_produto(Produto * produto);
+    vector<Produto *> get_produto();
 
     //Outros Métodos
     bool cadastra_categoria(string categoria);

@@ -29,6 +29,7 @@ int main() {
                 break;
 
             case 3:
+                menu.menu_modoRecomendacao();
                 break;
 
             case 0:

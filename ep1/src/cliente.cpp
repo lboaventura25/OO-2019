@@ -107,7 +107,7 @@ void Cliente::cadastra_cliente() {
         saida << get_total_de_compras() << endl;
         saida.close();
     }
-    saida.open("./doc/Categorias/"+get_cpf()+".txt", ios::trunc);
+    // saida.open("./doc/Categorias/"+get_cpf()+".txt", ios::trunc);
     saida.close();
 }
 
@@ -173,6 +173,10 @@ bool Cliente::finaliza_compra() {
     return carrinho.check_estoque();
 }
 
-void Cliente::kill_carrinho() {
+vector<Produto *> Cliente::atualiza_recomendacao() {
+    vector<Produto *> produtos;
+    produtos = carrinho.get_produto();
     carrinho.~Carrinho();
+
+    return produtos; 
 }
