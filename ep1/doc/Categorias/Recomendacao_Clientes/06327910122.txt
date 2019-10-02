@@ -1,8 +1,0 @@
-Doces
-3
-Frios
-4
-Bebidas
-2
-Salgado
-4

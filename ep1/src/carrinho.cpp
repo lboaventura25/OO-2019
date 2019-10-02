@@ -8,10 +8,13 @@
 
 using namespace std;
 
-Carrinho::Carrinho() {}
+Carrinho::Carrinho() {} // Construtor da classe Carrinho.
 
-Carrinho::~Carrinho() {}
+Carrinho::~Carrinho() {} // Destrutor da classe Carrinho.
 
+/*
+    Métodos acessores da classe Carrinho.  
+*/
 void Carrinho::set_produto(Produto *produto) {
     this->produtos.push_back(produto);
 }
@@ -28,12 +31,16 @@ vector<int> Carrinho::get_quantidades() {
     return this->quantidades;
 }
 
+/*
+    Método que caso o produto seja cadastrado ,acrescenta o produto 
+    e sua quantidade no carrinho.  
+*/
 void Carrinho::acrescenta_carrinho(string codigo, int quantidade) {
     string arquivo;
 
     Produto produto;
     arquivo = produto.check_produto(codigo);
-    if(arquivo != "./doc/Cadastro_produtos/"+codigo+".txt") {
+    if(arquivo != "./assets/Cadastro_produtos/"+codigo+".txt") {
         cout << "*** Produto não cadastrado! ***" << endl;
     }
     else {
@@ -43,6 +50,9 @@ void Carrinho::acrescenta_carrinho(string codigo, int quantidade) {
     }
 }
 
+/*
+    Método que imprime a nota fiscal da compra.
+*/
 float Carrinho::nota_fiscal_do_carrinho(float porcentagem_desconto) {
     int i = 0;
     float valor = 0;
@@ -67,6 +77,7 @@ float Carrinho::nota_fiscal_do_carrinho(float porcentagem_desconto) {
     }
 
     cout << "--------------------------------------------------------" << endl;
+    cout << fixed << setprecision(2);
     cout << endl << "--> Valor total da compra: R$" << valor << endl;
     cout << "--> Valor do desconto oferecido: R$" << (porcentagem_desconto * valor) << endl; 
     cout << "--> Valor final ----> R$" << (1 - porcentagem_desconto) * valor << endl;
@@ -75,6 +86,9 @@ float Carrinho::nota_fiscal_do_carrinho(float porcentagem_desconto) {
     return (1 - porcentagem_desconto) * valor;
 }
 
+/*
+    Método que checa se existe a quantidade comprada dos produto no estoque.  
+*/
 bool Carrinho::check_estoque() {
     int i = 0;
     vector<int> j;
@@ -94,6 +108,8 @@ bool Carrinho::check_estoque() {
         if(x == false)
             return false;
     }
+    if(produtos.size() == 0)
+        return false;
 
     for(Produto *produto: produtos) {
         produto->cadastro_produto();

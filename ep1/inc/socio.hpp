@@ -9,6 +9,10 @@
 
 using namespace std;
 
+/*
+    Classe Sócio que é filha da classe Cliente.
+*/
+
 class Socio : public Cliente {
 
 private:
@@ -17,7 +21,7 @@ private:
 
 public:
     Socio();//Contrutor
-    Socio(Cliente *cliente);//Sobrecarga do Construtor
+    Socio(string nome, int idade, string cpf, string email, float total_de_compras);//Sobrecarga do Construtor
     ~Socio();//Destrutor
 
     //Métodos Acessores
@@ -25,7 +29,7 @@ public:
     float get_desconto();
 
     //Outros Métodos
-    void nota_fiscal();
+    bool nota_fiscal();
     void imprime_dados();
 };
 

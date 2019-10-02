@@ -15,6 +15,7 @@ using namespace std;
 class Menu {
 
     private:
+        //Atributos
         vector<Cliente *> clientes;
         Estoque *estoque;
         Categoria *categorias;
@@ -35,7 +36,7 @@ class Menu {
         void menu_modoEstoque();
         void set_cliente(string nome, int idade, string cpf, string email);
         bool cadastro_existe(string arquivo, string test);
-        void cadastra_cliente();
+        void cadastra_cliente(string cpf);
         void cadastra_produto();
         void atualiza_estoque();
         void cadastra_categoria();

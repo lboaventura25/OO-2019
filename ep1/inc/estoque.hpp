@@ -10,18 +10,18 @@ using namespace std;
 
 class Estoque {
 
-public:
-    Estoque();//Construtor
-    ~Estoque();//Destrutor
+    public:
+        Estoque();//Construtor
+        ~Estoque();//Destrutor
 
-    //Métodos Acessores
-    void set_produto(string codigo, string nome, int quantidade, float preco);
+        //Métodos Acessores
+        bool set_produto(string codigo, string nome, int quantidade, float preco);
 
-    //Métodos 
-    void atualiza_quantidade(string codigo, int quantidade);
-    void cadastra_produto(Produto * produto);
-    string produto_existe(string codigo);
-
+        //Métodos 
+        void atualiza_quantidade(string codigo, int quantidade);
+        void cadastra_produto(Produto * produto);
+        string produto_existe(string codigo);
+        bool acrescenta_categoria_ao_produto(string codigo_produto, string categoria);
 };
 
 #endif

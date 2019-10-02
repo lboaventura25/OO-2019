@@ -10,6 +10,10 @@
 
 using namespace std;
 
+/*
+    Main do Software que cria uma classe Menu para execução 
+    das funcionalidades do programa.   
+*/
 int main() {
 
     int resp = -1;

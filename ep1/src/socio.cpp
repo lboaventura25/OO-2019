@@ -5,22 +5,28 @@
 
 using namespace std;
 
-Socio::Socio() {}
+Socio::Socio() {} // Construtor da classe Socio.
 
-Socio::Socio(Cliente * cliente){
-    set_nome(cliente->get_nome());
-    set_idade(cliente->get_idade());
-    set_cpf(cliente->get_cpf());
-    set_email(cliente->get_email());
+/*
+    Sobrecarga do construtor da classe Socio.
+*/
+Socio::Socio(string nome, int idade, string cpf, string email, float total_de_compras){
+    set_nome(nome);
+    set_idade(idade);
+    set_cpf(cpf);
+    set_email(email);
     set_socio(true);
-    set_total_de_compras(cliente->get_total_de_compras());
+    set_total_de_compras(total_de_compras);
 
     if(get_total_de_compras() >= 20)
         set_desconto(0.15);
 }
 
-Socio::~Socio() {}
+Socio::~Socio() {} // Destrutor da classe Socio.
 
+/*
+    Métodos acessores da classe Socio.
+*/
 void Socio::set_desconto(float desconto) {
     this->desconto = desconto;
 }
@@ -29,10 +35,23 @@ float Socio::get_desconto() {
     return this->desconto;
 }
 
-void Socio::nota_fiscal() {
-    set_total_de_compras(get_total_de_compras() + (get_carrinho().nota_fiscal_do_carrinho(get_desconto())));
+/*
+    Método Sobrescrito da classe Cliente que gera a nota fiscal da compra com o desconto do Socio, 
+    e que também checa se tem algum produto na compra.
+*/
+bool Socio::nota_fiscal() {
+    float total_da_compra = get_carrinho().nota_fiscal_do_carrinho(get_desconto());
+    set_total_de_compras(get_total_de_compras() + total_da_compra);
+    if(total_da_compra > 0) {
+        return true;
+    }
+    return false;
 }
 
+/*
+    Método responsável por imprimir o Cliente que é Sócio 
+    com o respectivo desconto no Perfil.  
+*/
 void Socio::imprime_dados() {
         cout << "Nome do Cliente: " << get_nome() << endl;
         cout << "Idade: " << get_idade() << endl;
